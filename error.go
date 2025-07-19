@@ -93,6 +93,16 @@ func (err Error) Error() string {
 	return str
 }
 
+func (err Error) Is(target Error) bool {
+	switch v := target.(type) {
+	case ErrNo:
+		return err.Code == v
+	case ErrNoExtended:
+		return err.ExtendedCode == v
+	}
+	return false
+}
+
 // result codes from http://www.sqlite.org/c3ref/c_abort_rollback.html
 var (
 	ErrIoErrRead              = ErrIoErr.Extend(1)
