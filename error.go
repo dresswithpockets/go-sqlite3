@@ -93,7 +93,7 @@ func (err Error) Error() string {
 	return str
 }
 
-func (err Error) Is(target Error) bool {
+func (err Error) Is(target interface{}) bool {
 	switch v := target.(type) {
 	case ErrNo:
 		return err.Code == v
